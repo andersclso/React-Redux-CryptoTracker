@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 import CryptoTrackerApp from './components/CryptoTrackerApp';
 
-function App() {
-  return (
-    <React.Fragment>
+ReactDOM.render(
+    <Provider store={store}>
       <CryptoTrackerApp />
-    </React.Fragment>
-  )
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+    </Provider>,
+     document.getElementById('root'));
