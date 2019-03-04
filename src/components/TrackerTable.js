@@ -3,6 +3,7 @@ import TableDataRow from './TableDataRow';
 
 export default function TrackerTable(props) {
   let table_content = props.content.map(currency => <TableDataRow
+                                              key={ currency.symbol }
                                               rank={ currency.cmc_rank }
                                               symbol={ currency.symbol }
                                               price={ currency.quote.USD.price }

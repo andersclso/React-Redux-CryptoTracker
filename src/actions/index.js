@@ -4,8 +4,10 @@ export const ADD = 'ADD';
 // TABLE ACTION TYPES
 export const POPULATE_TABLE = 'POPULATE_TABLE';
 export const REMOVE = 'REMOVE';
-export const SORT_BY_RANK = 'SORT_BY_RANK';
-export const SORT_BY_PRICE = 'SORT_BY_PRICE';
+export const SORT_BY_RANK_ASCENDING = 'SORT_BY_RANK_ASCENDING';
+export const SORT_BY_RANK_DESCENDING = 'SORT_BY_RANK_DESCENDING';
+export const SORT_BY_PRICE_ASCENDING = 'SORT_BY_PRICE_ASCENDING';
+export const SORT_BY_PRICE_DESCENDING = 'SORT_BY_PRICE_DESCENDING';
 
 // LIST ACTION CREATORS
 export function populateList(currencies) {
@@ -37,16 +39,14 @@ export function remove(currency) {
   }
 }
 
-export function sortByRank(sortBy) {
+export function sortByRank(ascending) {
   return {
-    type: SORT_BY_RANK,
-    sortBy
+    type: ascending ? SORT_BY_PRICE_ASCENDING : SORT_BY_PRICE_DESCENDING
   }
 }
 
-export function sortByPrice(sortBy) {
+export function sortByPrice(ascending) {
   return {
-    type: SORT_BY_PRICE,
-    sortBy
+    type: ascending ? SORT_BY_RANK_ASCENDING : SORT_BY_RANK_DESCENDING
   }
 }

@@ -6,11 +6,15 @@ import * as Actions from '../actions';
 import TrackerTable from './TrackerTable';
 import SelectDropdown from './SelectDropdown';
 import initialPageLoadData from '../api/initialPageLoadData';
-import { getDataOnOneCrypto } from '../api/getTableContentData';
 
 class CryptoTrackerApp extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      rankAscending: true,
+      priceAscending: true
+    }
+
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.sortByRank = this.sortByRank.bind(this);
@@ -21,26 +25,44 @@ class CryptoTrackerApp extends React.Component {
     initialPageLoadData();
   }
 
-  async add(e) {
+  add(e) {
     e.preventDefault();
-    let currency = await getDataOnOneCrypto(e.target.value);
+
+    let currency = this.props.currencies.find(currency => currency.id == e.target.value);
     this.props.actions.add(currency);
   }
 
   remove(e) {
     e.preventDefault();
+
+    if (this.props.content.length === 1) {
+      return alert('Must be tracking minimum of 1 currency');
+    }
+
     let currency = e.target.value;
     this.props.actions.remove(currency);
   }
 
   sortByRank(e) {
     e.preventDefault();
-    this.props.actions.sortByRank();
+    this.props.actions.sortByRank(this.state.rankAscending);
+
+    this.setState((prevState) => {
+      return {
+        rankAscending: !prevState.rankAscending
+      }
+    });
   }
 
   sortByPrice(e) {
     e.preventDefault();
-    this.props.actions.sortByPrice();
+    this.props.actions.sortByPrice(this.state.priceAscending);
+
+    this.setState((prevState) => {
+      return {
+        priceAscending: !prevState.priceAscending
+      }
+    });
   }
 
   render() {

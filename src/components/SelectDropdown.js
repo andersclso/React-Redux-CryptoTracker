@@ -6,14 +6,11 @@ export default function SelectDropdown(props) {
 
   let tableContentNames = props.tableContent.map(currency => currency.name);
 
-  const hideOptionCheck = (name) => {
-    return tableContentNames.includes(name);
-  }
-
   let options = props.currencies.map(currency => <DropdownOption
+                                                  key={ currency.symbol }
                                                   name={ currency.name }
                                                   value={ currency.id }
-                                                  hide={ hideOptionCheck(currency.name) }
+                                                  hide={ tableContentNames.includes(currency.name) }
                                                   />);
 
   return (

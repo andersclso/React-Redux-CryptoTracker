@@ -1,15 +1,15 @@
 import axios from 'axios';
 import store from '../store';
 import { populateList, populateTable } from '../actions';
-import getCurrencyList from './getCurrencyList';
-import { getTableContentData } from './getTableContentData';
+import getCurrencyData from './getCurrencyData';
 
 export default async function initialPageLoadData() {
 
-  let currency_list = await getCurrencyList();
-  let defaultCurrencyContentData = await getTableContentData(currency_list.slice(0,5));
-  console.log(defaultCurrencyContentData);
+  let currency_data = await getCurrencyData(1, 10);
+  console.log(currency_data);
 
-  store.dispatch(populateList(currency_list));
-  store.dispatch(populateTable(defaultCurrencyContentData));
+  let initialTableCurrencies = currency_data.slice(0,5);
+
+  store.dispatch(populateList(currency_data));
+  store.dispatch(populateTable(initialTableCurrencies));
 }
